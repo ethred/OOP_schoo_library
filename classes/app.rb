@@ -38,37 +38,36 @@ class App
   def create_person
     print 'Do you want to create a student (1) or a teacher (2)? [input the number]: '
     student_or_teacher = gets.chomp.to_i
+    age = UserInput.new.user_input_as_integer
+    name = UserInput.new.user_input_as_string('Please enter a Name:')
     case student_or_teacher
     when 1
-      create_person_instance(Student)
+      create_person_instance(1, age, name)
     when 2
-      create_person_instance(Teacher)
+      create_person_instance(2, age, name)
     else
       puts "Invalid choice. Please enter a valid option. (#{student_or_teacher})"
     end
   end
 
-  def create_person_instance(person_class)
-    age = UserInput.new.user_input_as_integer
-    name = UserInput.new.user_input_as_string
-
-    if person_class == Student
-      parent_permission = UserInput.new.user_input_as_string
+  def create_person_instance(person_class, age, name)
+    if person_class == 1
+      parent_permission = UserInput.new.prompt_yes_no
       if parent_permission =~ /^[Yy]/
-        student = Student.new('Unknown', age, name, parent_permission: true)
+        @newstudentpermision = true
       elsif parent_permission =~ /^[Nn]/
-        student = Student.new('Unknown', age, name, parent_permission: false)
+        @newstudentpermision = false
       else
         puts "Invalid choice. Please enter a valid option. (#{parent_permission})"
         return
       end
+      @newpersion = Student.new('Unknown', age, name, parent_permission: true)
     else
-      specialization = gets.chomp.to_s
-      teacher = Teacher.new(specialization, age, name)
-      @people.push(teacher)
-    end
+      specialization = UserInput.new.user_input_as_string('Please enter a Specialization:')
+      @newpersion = Teacher.new(specialization, age, name)
 
-    @people.push(student) if student
+    end
+    @people.push(@newpersion)
     puts 'Person created successfully'
   end
 
