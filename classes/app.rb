@@ -4,6 +4,7 @@ require_relative 'person'
 require_relative 'rental'
 require_relative 'student'
 require_relative 'teacher'
+require_relative 'user_input'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -37,51 +38,36 @@ class App
   def create_person
     print 'Do you want to create a student (1) or a teacher (2)? [input the number]: '
     student_or_teacher = gets.chomp.to_i
+    age = UserInput.new.user_input_as_integer
+    name = UserInput.new.user_input_as_string('Please enter a Name:')
     case student_or_teacher
     when 1
-      create_student
+      create_person_instance(1, age, name)
     when 2
-      create_teacher
+      create_person_instance(2, age, name)
     else
       puts "Invalid choice. Please enter a valid option. (#{student_or_teacher})"
     end
   end
 
-  def create_student
-    print 'Age: '
-    age = gets.chomp.to_i
-
-    print 'Name: '
-    name = gets.chomp.to_s
-
-    print 'Has parent permission? [Y / N]: '
-    parent_permission = gets.chomp.to_s
-
-    if parent_permission =~ /^[Yy]/
-      student = Student.new('Unknown', age, name, parent_permission: true)
-    elsif parent_permission =~ /^[Nn]/
-      student = Student.new('Unknown', age, name, parent_permission: false)
+  def create_person_instance(person_class, age, name)
+    if person_class == 1
+      parent_permission = UserInput.new.prompt_yes_no
+      if parent_permission =~ /^[Yy]/
+        @newstudentpermision = true
+      elsif parent_permission =~ /^[Nn]/
+        @newstudentpermision = false
+      else
+        puts "Invalid choice. Please enter a valid option. (#{parent_permission})"
+        return
+      end
+      @newpersion = Student.new('Unknown', age, name, parent_permission: true)
     else
-      puts "Invalid choice. Please enter a valid option. (#{parent_permission})"
-      return
+      specialization = UserInput.new.user_input_as_string('Please enter a Specialization:')
+      @newpersion = Teacher.new(specialization, age, name)
+
     end
-
-    @people.push(student)
-    puts 'Person created successfully'
-  end
-
-  def create_teacher
-    print 'Age: '
-    age = gets.chomp.to_i
-
-    print 'Name: '
-    name = gets.chomp.to_s
-
-    print 'Specialization: '
-    specialization = gets.chomp.to_s
-
-    teacher = Teacher.new(specialization, age, name)
-    @people.push(teacher)
+    @people.push(@newpersion)
     puts 'Person created successfully'
   end
 
@@ -124,14 +110,10 @@ class App
     id = gets.chomp.to_i
     selected = @rentals.find_all { |rental| rental.person.id == id }
     if selected.empty?
-      puts "Person with given id #{id} does not exist"
+      puts "Person with the given ID #{id} does not exist"
       return
     end
     puts 'Rentals:'
     selected.map { |rental| puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}" }
-  end
-
-  def run
-    prompt
   end
 end

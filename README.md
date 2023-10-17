@@ -129,6 +129,12 @@ ruby decode.rb
 - Twitter: [@redwanthr](https://twitter.com/@redwanthr)
 - LinkedIn: [Redwan Tahir](https://www.linkedin.com/in/redwan-tahir-78260733/)
 
+👤 **Ngala Mac**
+
+- GitHub: [ngalamac](https://github.com/ngalamac)
+- LinkedIn: [Ngala Mac](https://www.linkedin.com/in/...)
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
