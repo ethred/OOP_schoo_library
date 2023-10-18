@@ -6,6 +6,7 @@ class LibraryApp
   
   def initialize
     @library = App.new
+    load_data
   end
 
   def run

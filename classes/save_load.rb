@@ -40,34 +40,44 @@ module SaveLoad
   end
 
   def save_data
-    save_books unless File.exist?('classes/books.json')
-    save_people unless File.exist?('classes/people.json')
-    save_rentals unless File.exist?('classes/rentals.json')
-  end
+    save_books unless File.exists?('classes/books.json')
+    save_people unless File.exists?('classes/people.json')
+    save_rentals unless File.exists?('classes/rentals.json')
+  end  
 
   def load_books
     return unless File.exist?('classes/books.json')
 
     @books = []
-    File.foreach('classes/books.json') do |line|
-      element = JSON.parse(line)
-      new_book = Book.new(element['title'], element['author'])
-      @books.push(new_book)
+    File.foreach('classes/books.json').with_index do |line, line_num|
+      begin
+        element = JSON.parse(line)
+        new_book = Book.new(element['title'], element['author'])
+        @books.push(new_book)
+      rescue JSON::ParserError => e
+        puts "Error parsing line #{line_num + 1}: #{line}"
+        puts e
+      end
     end
   end
-  
+
   def load_people
     return unless File.exist?('classes/people.json')
 
     @people = []
-    File.foreach('classes/people.json') do |line|
-      element = JSON.parse(line)
-      new_person = if element['type'] == 'Student'
-                     Student.new(element['id'], element['name'], element['age'], element['parent_permission'])
-                   else
-                     Teacher.new(element['id'], element['name'], element['age'], element['specialization'])
-                   end
-      @people.push(new_person)
+    File.foreach('classes/people.json').with_index do |line, line_num|
+      begin
+        element = JSON.parse(line)
+        new_person = if element['type'] == 'Student'
+                       Student.new(element['id'], element['name'], element['age'], element['parent_permission'])
+                     else
+                       Teacher.new(element['id'], element['name'], element['age'], element['specialization'])
+                     end
+        @people.push(new_person)
+      rescue JSON::ParserError => e
+        puts "Error parsing line #{line_num + 1}: #{line}"
+        puts e
+      end
     end
   end
 
@@ -75,12 +85,17 @@ module SaveLoad
     return unless File.exist?('classes/rentals.json')
 
     @rentals = []
-    File.foreach('classes/rentals.json') do |line|
-      element = JSON.parse(line)
-      rental_person = @people[element['person']]
-      rental_book = @books[element['book']]
-      new_rental = Rental.new(rental_person, rental_book, element['date'])
-      @rentals.push(new_rental)
+    File.foreach('classes/rentals.json').with_index do |line, line_num|
+      begin
+        element = JSON.parse(line)
+        rental_person = @people[element['person']]
+        rental_book = @books[element['book']]
+        new_rental = Rental.new(rental_person, rental_book, element['date'])
+        @rentals.push(new_rental)
+      rescue JSON::ParserError => e
+        puts "Error parsing line #{line_num + 1}: #{line}"
+        puts e
+      end
     end
   end
 

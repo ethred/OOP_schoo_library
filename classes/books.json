@@ -1,10 +1,5 @@
 [
-    {
-      "title": "JavaScript",
-      "author": "Author 1"
-    },
-    {
-      "title": "Intro Html",
-      "author": "Author 2"
-    }
-  ]
+  { "title": "Book 1 Title", "author": "Author 1" },
+  { "title": "Book 2 Title", "author": "Author 2" },
+  { "title": "Book 3 Title", "author": "Author 3" }
+]
