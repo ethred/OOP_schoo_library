@@ -5,6 +5,15 @@ require_relative 'person'
 require 'json'
 
 module SaveLoad
+  def save_books
+    File.open('classes/books.json', 'w') do |file|
+      @books.each do |book|
+        json = JSON.generate({ title: book.title, author: book.author })
+        file.puts(json)
+      end
+    end
+  end
+
   def save_people
     File.open('classes/people.json', 'w') do |file|
       @people.each do |person|
@@ -36,6 +45,17 @@ module SaveLoad
     save_rentals unless File.exist?('classes/rentals.json')
   end
 
+  def load_books
+    return unless File.exist?('classes/books.json')
+
+    @books = []
+    File.foreach('classes/books.json') do |line|
+      element = JSON.parse(line)
+      new_book = Book.new(element['title'], element['author'])
+      @books.push(new_book)
+    end
+  end
+  
   def load_people
     return unless File.exist?('classes/people.json')
 
