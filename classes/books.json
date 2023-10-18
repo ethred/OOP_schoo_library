@@ -1,5 +1,10 @@
 [
-  { "title": "Book 1 Title", "author": "Author 1" },
-  { "title": "Book 2 Title", "author": "Author 2" },
-  { "title": "Book 3 Title", "author": "Author 3" }
+  {
+    "title": "abc",
+    "author": "abc"
+  },
+  {
+    "title": "xyz",
+    "author": "xyz"
+  }
 ]
