@@ -1,0 +1,16 @@
+[
+  {
+    "type": "Student",
+    "id": 0,
+    "name": "Samson Smith",
+    "age": 20,
+    "parent_permission": true
+  },
+  {
+    "type": "Teacher",
+    "id": 1,
+    "name": "Frezer Smith",
+    "age": 35,
+    "specialization": "English"
+  }
+]

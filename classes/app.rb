@@ -5,14 +5,17 @@ require_relative 'rental'
 require_relative 'student'
 require_relative 'teacher'
 require_relative 'user_input'
+require_relative 'save_load'
 
 class App
+  include SaveLoad
   attr_accessor :books, :people, :rentals
 
   def initialize
     @books = []
     @rentals = []
     @people = []
+    save_data
   end
 
   def list_books
@@ -115,5 +118,10 @@ class App
     end
     puts 'Rentals:'
     selected.map { |rental| puts "Date: #{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}" }
+  end
+
+  def run
+    prompt
+    save_data
   end
 end
