@@ -194,19 +194,6 @@ class App
 
   private
 
-  def save_books
-    books_data = @books.map { |book| { 'title' => book.title, 'author' => book.author } }
-    File.write('classes/books.json', JSON.pretty_generate(books_data))
-  end
-
-  def load_books
-    if File.exist?('classes/books.json')
-      books_data = JSON.parse(File.read('books.json'))
-      @books = books_data.map { |book_data| Book.new(book_data['title'], book_data['author']) }
-    else
-      @books = []
-    end
-  end
 
   def save_people
     people_data = @people.map do |person|
