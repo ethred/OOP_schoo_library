@@ -39,7 +39,7 @@ end
 
 def main
   app = App.new
-  app.load_data
+  app.load_data # Load data on startup
 
   welcome_shown = false
 

@@ -196,11 +196,11 @@ class App
 
   def save_books
     books_data = @books.map { |book| { 'title' => book.title, 'author' => book.author } }
-    File.write('classes/books.json', JSON.pretty_generate(books_data))
+    File.write('books.json', JSON.pretty_generate(books_data))
   end
 
   def load_books
-    if File.exist?('classes/books.json')
+    if File.exist?('books.json')
       books_data = JSON.parse(File.read('books.json'))
       @books = books_data.map { |book_data| Book.new(book_data['title'], book_data['author']) }
     else
@@ -216,11 +216,11 @@ class App
         { 'name' => person.name, 'age' => person.age }
       end
     end
-    File.write('classes/people.json', JSON.pretty_generate(people_data))
+    File.write('people.json', JSON.pretty_generate(people_data))
   end
 
   def load_people
-    if File.exist?('classes/people.json')
+    if File.exist?('people.json')
       people_data = JSON.parse(File.read('people.json'))
       @people = people_data.map do |person_data|
         if person_data['specialization']
@@ -250,11 +250,11 @@ class App
         'person' => { 'id' => rental.person.id, 'name' => rental.person.name, 'age' => rental.person.age }
       }
     end
-    File.write('classes/rentals.json', JSON.pretty_generate(rentals_data))
+    File.write('rentals.json', JSON.pretty_generate(rentals_data))
   end
 
   def load_rentals
-    if File.exist?('classes/rentals.json')
+    if File.exist?('rentals.json')
       rentals_data = JSON.parse(File.read('rentals.json'))
       @rentals = rentals_data.map do |rental_data|
         book = find_book_by_title(rental_data['book']['title'])
