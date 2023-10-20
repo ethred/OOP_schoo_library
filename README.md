@@ -132,7 +132,7 @@ ruby decode.rb
 👤 **Ngala Mac**
 
 - GitHub: [ngalamac](https://github.com/ngalamac)
-- LinkedIn: [Ngala Mac](https://www.linkedin.com/in/...)
+- LinkedIn: [Ngala Mac](https://www.linkedin.com/in/ngala-mac-872a65220/)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
