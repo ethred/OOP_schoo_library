@@ -7,7 +7,7 @@ describe Rental do
   let(:book) { Book.new('The Great Gatsby', 'F. Scott Fitzgerald') }
   let(:person) { Person.new(name: 'John', age: 25, parent_permission: true) }
   let(:date) { Time.now }
-  
+
   it 'has a date' do
     # Create a test double for Rental
     rental = double('Rental', date: date)
