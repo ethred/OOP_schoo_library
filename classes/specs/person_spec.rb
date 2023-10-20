@@ -1,58 +1,44 @@
+# person_spec.rb
+
+require_relative '../person' # Adjust the path as needed
 require 'rspec'
-require 'date'
-require_relative '../book'
-require_relative '../person'
-require_relative '../rental'
 
 describe Person do
-  let(:person) { Person.new(18, 'Okari') }
+  let(:person) { Person.new(name: 'John', age: 25, parent_permission: true) }
 
-  context '#add_rental' do
-    it 'adds a new rental to the rental list of a person' do
-      person = Person.new(25)
-      book = Book.new('Book 1', 'Author 1')
-      date = Date.today
-
-      person.add_rental(date, book)
-
-      expect(person.rentals).to include(Rental.new(date, book, person))
-    end
+  it 'adds a new rental to the rental list of a person' do
+    rental = double('Rental')
+    person.add_rental(rental)
+    expect(person.rentals).to include(rental)
   end
 
-  context '#using_services' do
-    it 'returns true if the person is of age' do
-      person = Person.new(14)
-      expect(person.can_use_services?).to be true
-    end
-
-    it 'returns true if the person has parent permission' do
-      person = Person.new(16, parent_permission: true)
-      expect(person.can_use_services?).to be true
-    end
-
-    it 'returns false if the person is not of age and does not have parent permission' do
-      person = Person.new(16, parent_permission: false)
-      expect(person.can_use_services?).to be false
-    end
+  it 'returns true if the person is of age' do
+    expect(person.can_use_services?).to be true
   end
 
-  context '#correct_name' do
-    it 'returns the actual name' do
-      person = Person.new(14, 'Okari')
-      expect(person.correct_name).to eq 'Okari'
+  it 'returns true if the person has parent permission' do
+    person = Person.new(name: 'John', age: 16, parent_permission: true)
+    expect(person.can_use_services?).to be true
+  end
+
+  it 'returns false if the person is not of age and does not have parent permission' do
+    person = Person.new(name: 'John', age: 14, parent_permission: false)
+    expect(person.can_use_services?).to be false
+  end
+
+  it 'returns the actual name' do
+    expect(person.correct_name).to eq('John')
+  end
+
+  context 'private methods' do
+    it '#of_age? returns true if the person is 18 years old or older' do
+      person = Person.new(name: 'John', age: 18, parent_permission: false)
+      expect(person.send(:of_age?)).to be true
     end
 
-    context '#private methods' do
-      context '#of_age?' do
-        it 'returns true if the person is 18 years old or older' do
-          expect(person.send(:of_age?)).to be true
-        end
-
-        it 'returns false if the person is younger than 18 years old' do
-          person.age = 17
-          expect(person.send(:of_age?)).to be false
-        end
-      end
+    it '#of_age? returns false if the person is younger than 18 years old' do
+      person = Person.new(name: 'John', age: 17, parent_permission: false)
+      expect(person.send(:of_age?)).to be false
     end
   end
 end
