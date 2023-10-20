@@ -1,6 +1,4 @@
-# person_spec.rb
-
-require_relative '../person' # Adjust the path as needed
+require_relative '../person'
 require 'rspec'
 
 describe Person do

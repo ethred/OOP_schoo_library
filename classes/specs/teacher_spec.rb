@@ -1,7 +1,5 @@
-# teacher_spec.rb
-
-require_relative '../teacher' # Adjust the path as needed
-require_relative '../specialization' # Import the Specialization class
+require_relative '../teacher'
+require_relative '../specialization'
 require 'rspec'
 
 describe Teacher do
