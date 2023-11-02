@@ -26,7 +26,7 @@
 
 # School Library Management System <a name="about-project"></a>
 
-The **School Library Management System** A Ruby-based application has been cleverly designed to herald in a new era of library management, providing a user-friendly and efficient platform for rigorous categorization, exact tracking, and smooth lending of books to both students and instructors. This revolutionary software solution, enabled by the Ruby programming language's capabilities, is a disruptive force in the domain of library operations, redefining how libraries run and improving the experience for all stakeholders.
+The **School Library Management System** A Ruby-based application has been cleverly designed to herald in a new era of library management system, providing a user-friendly and efficient platform for rigorous categorization, exact tracking, and smooth lending of books to both students and instructors. This revolutionary software solution, enabled by the Ruby programming language's capabilities, is a disruptive force in the domain of library operations, redefining how libraries run and improving the experience for all stakeholders.
 
 ## 🛠 Built With <a name="built-with"></a>
 
